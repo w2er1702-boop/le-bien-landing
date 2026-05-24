@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>검색 결과 — 르비엔 Le Bien</title>
+  <meta name="description" content="르비엔 상품 검색 결과." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="검색 결과 — 르비엔 Le Bien" />
+  <meta property="og:description" content="르비엔 상품 검색 결과." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/search.html" />
+  <meta property="og:site_name" content="Le Bien" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-listing-type="search">
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section id="lhero" class="pagehero"></section>
+
+    <section class="listing">
+      <div class="container">
+        <div class="listing__toolbar">
+          <p class="listing__count"><strong id="lcount">0</strong>개 상품</p>
+          <div class="listing__sort">
+            <label for="lsort">정렬</label>
+            <select id="lsort">
+              <option value="recommended">관련도순</option>
+              <option value="price-asc">낮은 가격순</option>
+              <option value="price-desc">높은 가격순</option>
+              <option value="discount">할인율순</option>
+              <option value="rating">평점순</option>
+              <option value="reviews">리뷰 많은 순</option>
+            </select>
+          </div>
+        </div>
+
+        <ul class="product-grid product-grid--4" id="lgrid" aria-live="polite"></ul>
+
+        <div class="listing__empty" id="lempty" hidden>
+          <div class="listing__empty-icon" aria-hidden="true">🔍</div>
+          <h3>일치하는 상품이 없습니다</h3>
+          <p>다른 키워드로 검색하거나 카테고리에서 둘러보세요.</p>
+          <form role="search" action="search.html" method="get">
+            <input type="search" name="q" placeholder="다시 검색" />
+            <button type="submit" class="btn btn--gold">검색</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/listing.js"></script>
+</body>
+</html>

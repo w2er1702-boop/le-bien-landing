@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>르비엔 멤버스 — 좋은 것을 더 좋게</title>
+  <meta name="description" content="르비엔 멤버스 가입 안내. 회원가 최대 5%, 신규 5,000원 쿠폰, 월별 혜택." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="르비엔 멤버스 — 좋은 것을 더 좋게" />
+  <meta property="og:description" content="회원가 최대 5%, 신규 5,000원 쿠폰, 월별 혜택. 연회비 없음." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/membership.html" />
+  <meta property="og:site_name" content="Le Bien" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .ms-hero { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-deep) 100%); color: #fff; padding: 56px 0; text-align: center; }
+    .ms-hero h1 { font-family: var(--font-en); font-size: 44px; font-weight: 700; color: var(--color-accent); margin: 0 0 8px; letter-spacing: -1px; }
+    .ms-hero p { font-size: 14px; color: rgba(255,255,255,0.78); margin: 0 0 24px; }
+    .ms-hero .btn--gold-lg { display: inline-flex; }
+    @media (min-width: 768px) { .ms-hero h1 { font-size: 56px; } }
+    .ms-benefits { padding: 48px 0; }
+    .ms-benefits__grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 640px) { .ms-benefits__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .ms-benefits__grid { grid-template-columns: repeat(4, 1fr); } }
+    .ms-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius); padding: 22px 20px; text-align: center; }
+    .ms-card__icon { font-size: 32px; display: block; margin-bottom: 10px; }
+    .ms-card h3 { margin: 0 0 6px; font-size: 16px; color: var(--color-primary); font-weight: 800; }
+    .ms-card p { margin: 0; font-size: 13px; color: var(--color-text-sub); line-height: 1.6; }
+    .ms-rules { background: var(--color-bg-soft); padding: 36px 0; }
+    .ms-rules table { width: 100%; border-collapse: collapse; background: #fff; }
+    .ms-rules th, .ms-rules td { border: 1px solid var(--color-border); padding: 12px; font-size: 13px; text-align: left; vertical-align: top; }
+    .ms-rules th { background: var(--color-primary); color: #fff; font-weight: 700; }
+    .ms-cta { padding: 48px 0 64px; text-align: center; }
+    .ms-cta h2 { margin: 0 0 8px; font-size: 22px; color: var(--color-primary); font-weight: 800; }
+    .ms-cta p { margin: 0 0 18px; color: var(--color-text-sub); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section class="ms-hero">
+      <div class="container">
+        <span class="chip chip--gold" style="margin-bottom:14px;">LE BIEN MEMBERS</span>
+        <h1>Members</h1>
+        <p>회원가 최대 5% · 신규 5,000원 쿠폰 · 월별 혜택<br/>연회비는 없습니다.</p>
+        <a href="account/signup.html" class="btn btn--gold-lg">지금 무료 가입하기 →</a>
+      </div>
+    </section>
+
+    <section class="ms-benefits container">
+      <div class="ms-benefits__grid">
+        <div class="ms-card">
+          <span class="ms-card__icon" aria-hidden="true">💰</span>
+          <h3>회원가 최대 5%</h3>
+          <p>모든 상품에<br/>자동 적용</p>
+        </div>
+        <div class="ms-card">
+          <span class="ms-card__icon" aria-hidden="true">🎁</span>
+          <h3>신규 쿠폰</h3>
+          <p>가입 즉시 5,000원<br/>할인 쿠폰 발급</p>
+        </div>
+        <div class="ms-card">
+          <span class="ms-card__icon" aria-hidden="true">🎂</span>
+          <h3>생일 쿠폰</h3>
+          <p>매년 생일달<br/>10% 쿠폰 자동 발급</p>
+        </div>
+        <div class="ms-card">
+          <span class="ms-card__icon" aria-hidden="true">🚚</span>
+          <h3>무료배송</h3>
+          <p>5만원 이상<br/>주문 시 자동 적용</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ms-rules">
+      <div class="container container--narrow">
+        <h2 style="font-size:18px;font-weight:800;color:var(--color-primary);margin:0 0 14px;">회원 등급 안내</h2>
+        <table>
+          <thead>
+            <tr><th>등급</th><th>승급 조건</th><th>주요 혜택</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong style="color:var(--color-text-sub);">Standard</strong></td><td>가입 즉시</td><td>회원가 적용 · 신규 5,000원 쿠폰</td></tr>
+            <tr><td><strong style="color:var(--color-primary);">Plus</strong></td><td>최근 6개월 구매 30만원 이상</td><td>+ 매월 10% 쿠폰 1매</td></tr>
+            <tr><td><strong style="color:var(--color-accent);">Premier</strong></td><td>최근 6개월 구매 100만원 이상</td><td>+ 매월 15% 쿠폰 1매, 전 상품 무료배송</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="ms-cta container container--narrow">
+      <h2>아직 회원이 아니라면?</h2>
+      <p>이메일만으로 30초면 가입 완료. 신규 쿠폰은 자동 발급됩니다.</p>
+      <a href="account/signup.html" class="btn btn--gold-lg">무료 가입하기 →</a>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

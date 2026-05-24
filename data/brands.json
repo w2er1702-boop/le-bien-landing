@@ -1,0 +1,98 @@
+[
+  {
+    "key": "le-bien",
+    "name": "Le Bien",
+    "tagline": "르비엔의 시그니처 자체 브랜드",
+    "desc": "정말 좋은 것만 모은다는 원칙으로 르비엔이 직접 만든 시그니처 라인. 데일리 비타민C 세럼, 클렌징 폼이 베스트.",
+    "productCount": 2,
+    "matchBrands": ["Le Bien"]
+  },
+  {
+    "key": "maison-lebien",
+    "name": "메종 르비엔",
+    "tagline": "토너부터 디퓨저까지 — 일상의 사치",
+    "desc": "메종 르비엔은 르비엔의 라이프스타일 확장 라인입니다. 히알루론산 토너로 잘 알려져 있어요.",
+    "productCount": 1,
+    "matchBrands": ["메종 르비엔"]
+  },
+  {
+    "key": "le-bien-lab",
+    "name": "Le Bien Lab",
+    "tagline": "한국·노르웨이 공동 개발 건강기능식품",
+    "desc": "엄선된 원료, 표준화된 함량. 노르웨이산 알티지 오메가3 1+1이 베스트셀러.",
+    "productCount": 1,
+    "matchBrands": ["Le Bien Lab"]
+  },
+  {
+    "key": "le-bien-home",
+    "name": "Le Bien Home",
+    "tagline": "친환경 생활 — 매일 쓰는 것일수록",
+    "desc": "옥수수 전분 베이스 친환경 주방세제로 시작한 생활 자체 브랜드.",
+    "productCount": 1,
+    "matchBrands": ["Le Bien Home"]
+  },
+  {
+    "key": "le-bien-kitchen",
+    "name": "Le Bien Kitchen",
+    "tagline": "한 끼의 격을 올리는 도구",
+    "desc": "프렌치 우드 도마부터 무쇠 더치오븐까지. 오래 쓰는 주방 도구.",
+    "productCount": 1,
+    "matchBrands": ["Le Bien Kitchen"]
+  },
+  {
+    "key": "jks-partner",
+    "name": "정관장 협력관",
+    "tagline": "공식 협력 브랜드관",
+    "desc": "정관장 공식 협력 라인. 흑마늘 진액과 홍삼 라인업.",
+    "productCount": 1,
+    "matchBrands": ["정관장 협력관"]
+  },
+  {
+    "key": "maison-de-chef",
+    "name": "메종드셰프",
+    "tagline": "셰프가 사용하는 주방 도구",
+    "desc": "다이아몬드 코팅 인덕션 후라이팬 28cm로 유명한 주방 브랜드.",
+    "productCount": 1,
+    "matchBrands": ["메종드셰프"]
+  },
+  {
+    "key": "livedcast",
+    "name": "리브드캐스트",
+    "tagline": "주물 무쇠의 모던 해석",
+    "desc": "미드나잇 네이비 컬러의 주물 무쇠 더치오븐으로 알려진 한국 무쇠 브랜드.",
+    "productCount": 1,
+    "matchBrands": ["리브드캐스트"]
+  },
+  {
+    "key": "lacre",
+    "name": "라끄리",
+    "tagline": "한국형 더마 스킨케어",
+    "desc": "레티놀 0.3% 나이트 크림으로 알려진 더마 스킨케어 브랜드.",
+    "productCount": 1,
+    "matchBrands": ["라끄리"]
+  },
+  {
+    "key": "ordinate",
+    "name": "오디나뜨",
+    "tagline": "미네랄 선케어 전문",
+    "desc": "데일리 미네랄 선크림 SPF50+ PA++++ 라인을 운영합니다.",
+    "productCount": 1,
+    "matchBrands": ["오디나뜨"]
+  },
+  {
+    "key": "healthy-first",
+    "name": "헬시퍼스트",
+    "tagline": "프로바이오틱스 전문",
+    "desc": "100억 CFU 프로바이오틱스 60포 라인업.",
+    "productCount": 1,
+    "matchBrands": ["헬시퍼스트"]
+  },
+  {
+    "key": "pure-nature",
+    "name": "퓨어네이처",
+    "tagline": "산양유 단백질 전문",
+    "desc": "산양유 단백질 분리유 1kg 더블팩.",
+    "productCount": 1,
+    "matchBrands": ["퓨어네이처"]
+  }
+]

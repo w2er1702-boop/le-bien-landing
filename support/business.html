@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>사업자 회원 — 르비엔 Le Bien</title>
+  <meta name="description" content="르비엔 사업자 회원. 견적·세금계산서·정기 발주 지원." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="사업자 회원 — 르비엔 Le Bien" />
+  <meta property="og:description" content="사업자 회원 안내." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/support/business.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section class="pagehero">
+      <div class="container">
+        <p class="pagehero__crumb"><a href="index.html">홈</a><span class="pagehero__crumb-sep">›</span>고객지원<span class="pagehero__crumb-sep">›</span>사업자 회원</p>
+        <h1 class="pagehero__title">사업자 회원 안내</h1>
+        <p class="pagehero__sub">법인·기관·자영업자 대상 정기 발주 및 세금계산서 발행 지원</p>
+      </div>
+    </section>
+
+    <section class="container container--narrow" style="padding:32px 0 24px;">
+      <div class="article__body">
+        <h2 style="margin-top:0;">사업자 회원 혜택</h2>
+        <ul>
+          <li>전 품목 사업자 전용가 적용 (일반 회원가 대비 추가 1~3%)</li>
+          <li>전자세금계산서 자동 발행</li>
+          <li>월 정산 결제 옵션 제공 (보증보험 가입 시)</li>
+          <li>전담 매니저 배정 (월 거래액 100만원 이상)</li>
+          <li>대량 견적 및 정기 발주 일정 관리</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="formwrap" style="padding-top:0;">
+      <div class="container">
+        <div class="formwrap__inner formwrap__inner--wide">
+          <h2 class="formwrap__title" style="font-size:18px;">사업자 회원 신청</h2>
+
+          <form onsubmit="event.preventDefault(); alert('데모 사이트 — 사업자 회원 신청이 접수되었습니다.\n사업자등록증 확인 후 영업일 기준 2일 이내 승인됩니다.'); this.reset();">
+            <div class="field--row">
+              <div class="field">
+                <label for="bz-company">상호명 <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="bz-company" class="input" required />
+              </div>
+              <div class="field">
+                <label for="bz-bn">사업자등록번호 <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="bz-bn" class="input" required placeholder="000-00-00000" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="bz-ceo">대표자명 <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="bz-ceo" class="input" required />
+            </div>
+            <div class="field--row">
+              <div class="field">
+                <label for="bz-email">이메일 <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="bz-email" class="input" required />
+              </div>
+              <div class="field">
+                <label for="bz-phone">연락처 <span class="req" aria-hidden="true">*</span></label>
+                <input type="tel" id="bz-phone" class="input" required />
+              </div>
+            </div>
+            <div class="field">
+              <label for="bz-need">예상 월 구매 규모</label>
+              <select id="bz-need" class="select">
+                <option>50만원 미만</option>
+                <option>50만원 ~ 300만원</option>
+                <option>300만원 ~ 1,000만원</option>
+                <option>1,000만원 이상</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>사업자등록증 사본</label>
+              <input type="file" accept="image/*,application/pdf" class="input" />
+              <span class="field__help">데모 사이트에서는 첨부 파일을 실제 업로드하지 않습니다.</span>
+            </div>
+            <label class="check" style="margin-bottom:18px;">
+              <input type="checkbox" required /> [필수] 사업자정보 수집·이용에 동의합니다.
+            </label>
+            <button type="submit" class="btn btn--primary">사업자 회원 신청</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

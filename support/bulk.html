@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>대량주문 — 르비엔 Le Bien</title>
+  <meta name="description" content="기업·기관 대량 주문 견적 신청. 답례품·기념품·이벤트 발주 지원." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="대량주문 — 르비엔 Le Bien" />
+  <meta property="og:description" content="대량주문 견적." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/support/bulk.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main class="formwrap">
+    <div class="container">
+      <div class="formwrap__inner formwrap__inner--wide">
+        <h1 class="formwrap__title">대량주문 견적</h1>
+        <p class="formwrap__sub">답례품·기념품·임직원 선물·이벤트 등 대량 발주를 도와드립니다.</p>
+
+        <form onsubmit="event.preventDefault(); alert('데모 사이트 — 견적 요청이 접수되었습니다.\n영업일 기준 1~2일 내 견적서를 회신드립니다.'); this.reset();">
+          <div class="field--row">
+            <div class="field">
+              <label for="bk-name">담당자명 <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="bk-name" class="input" required />
+            </div>
+            <div class="field">
+              <label for="bk-company">소속</label>
+              <input type="text" id="bk-company" class="input" placeholder="회사·기관명" />
+            </div>
+          </div>
+          <div class="field--row">
+            <div class="field">
+              <label for="bk-email">이메일 <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="bk-email" class="input" required />
+            </div>
+            <div class="field">
+              <label for="bk-phone">연락처 <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="bk-phone" class="input" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="bk-use">사용 용도 <span class="req" aria-hidden="true">*</span></label>
+            <select id="bk-use" class="select" required>
+              <option value="">선택해 주세요</option>
+              <option>답례품 / 사은품</option>
+              <option>임직원 선물</option>
+              <option>이벤트 경품</option>
+              <option>판촉용</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="bk-product">희망 상품·카테고리 <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="bk-product" class="textarea" required placeholder="예: 데일리 비타민C 세럼 500개 / 또는 5만원 내외 뷰티 카테고리에서 추천"></textarea>
+          </div>
+          <div class="field--row">
+            <div class="field">
+              <label for="bk-qty">수량 <span class="req" aria-hidden="true">*</span></label>
+              <input type="number" id="bk-qty" class="input" required min="1" placeholder="예: 500" />
+            </div>
+            <div class="field">
+              <label for="bk-budget">예산 (원)</label>
+              <input type="text" id="bk-budget" class="input" placeholder="예: 5,000,000" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="bk-deadline">납기일</label>
+            <input type="date" id="bk-deadline" class="input" />
+          </div>
+          <div class="field">
+            <label for="bk-note">추가 요청 사항</label>
+            <textarea id="bk-note" class="textarea" placeholder="포장 디자인, 각인, 카드 등 별도 요청 사항이 있으면 알려주세요."></textarea>
+          </div>
+          <label class="check" style="margin-bottom:18px;">
+            <input type="checkbox" required /> [필수] 견적 처리를 위한 개인정보 수집·이용에 동의합니다.
+          </label>
+          <button type="submit" class="btn btn--primary">견적 요청하기</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

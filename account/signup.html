@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>회원가입 — 르비엔 Le Bien</title>
+  <meta name="description" content="르비엔 멤버스 가입. 신규 5,000원 쿠폰 즉시 발급." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="회원가입 — 르비엔 Le Bien" />
+  <meta property="og:description" content="신규 가입 5,000원 즉시 할인 쿠폰." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/account/signup.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main class="formwrap">
+    <div class="container">
+      <div class="formwrap__inner formwrap__inner--wide">
+        <h1 class="formwrap__title">회원가입</h1>
+        <p class="formwrap__sub">신규 가입 시 <strong style="color:var(--color-accent);">5,000원 쿠폰</strong>이 자동 발급됩니다.</p>
+
+        <ol class="stepper" aria-label="가입 진행 단계">
+          <li class="stepper__item is-current" data-step="1">약관 동의</li>
+          <li class="stepper__item" data-step="2">이메일 인증</li>
+          <li class="stepper__item" data-step="3">기본 정보</li>
+          <li class="stepper__item" data-step="4">마케팅 수신</li>
+        </ol>
+
+        <form id="signupForm" novalidate>
+          <div class="field">
+            <label class="check" style="font-weight:700;">
+              <input type="checkbox" id="agree-all" /> 전체 약관에 동의합니다
+            </label>
+          </div>
+          <div class="field" style="padding-left:8px;border-left:2px solid var(--color-border);">
+            <label class="check" style="margin-bottom:8px;"><input type="checkbox" class="agree-each" data-required="1" /> [필수] 이용약관 동의 <a href="help/terms.html" target="_blank" style="color:var(--color-accent);text-decoration:underline;margin-left:6px;">보기</a></label><br/>
+            <label class="check" style="margin-bottom:8px;"><input type="checkbox" class="agree-each" data-required="1" /> [필수] 개인정보 수집·이용 동의 <a href="help/privacy.html" target="_blank" style="color:var(--color-accent);text-decoration:underline;margin-left:6px;">보기</a></label><br/>
+            <label class="check" style="margin-bottom:8px;"><input type="checkbox" class="agree-each" /> [선택] 마케팅 정보 수신 동의 (이메일·SMS)</label><br/>
+            <label class="check"><input type="checkbox" class="agree-each" /> [선택] 만 14세 이상입니다</label>
+          </div>
+
+          <div class="field" style="border-top:1px solid var(--color-border-light);padding-top:18px;margin-top:18px;">
+            <label for="su-email">이메일 <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="email" id="su-email" required autocomplete="email" placeholder="you@example.com" />
+          </div>
+          <div class="field--row">
+            <div class="field">
+              <label for="su-pw">비밀번호 <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="password" id="su-pw" required minlength="8" placeholder="8자 이상" />
+            </div>
+            <div class="field">
+              <label for="su-pw2">비밀번호 확인 <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="password" id="su-pw2" required minlength="8" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="su-name">닉네임 <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="text" id="su-name" required maxlength="20" placeholder="다른 회원에게 표시될 이름" />
+          </div>
+          <div class="field">
+            <label for="su-phone">휴대폰</label>
+            <input class="input" type="tel" id="su-phone" autocomplete="tel" placeholder="010-0000-0000" />
+            <span class="field__help">주문·배송 알림 수신용 (선택)</span>
+          </div>
+
+          <button type="submit" class="btn btn--gold">가입하기 (5,000원 쿠폰 받기)</button>
+          <p style="margin-top:14px;font-size:12px;color:var(--color-text-mute);text-align:center;">
+            이미 회원이신가요? <a href="account/login.html" style="color:var(--color-accent);text-decoration:underline;">로그인</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var all = document.getElementById('agree-all');
+      var each = document.querySelectorAll('.agree-each');
+      all.addEventListener('change', function () {
+        each.forEach(function (c) { c.checked = all.checked; });
+      });
+      each.forEach(function (c) {
+        c.addEventListener('change', function () {
+          all.checked = Array.from(each).every(function (x) { return x.checked; });
+        });
+      });
+      document.getElementById('signupForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        // required agreements
+        var reqOk = Array.from(document.querySelectorAll('.agree-each[data-required="1"]')).every(function (c) { return c.checked; });
+        if (!reqOk) { alert('필수 약관에 동의해 주세요.'); return; }
+        var email = document.getElementById('su-email').value.trim();
+        var pw = document.getElementById('su-pw').value;
+        var pw2 = document.getElementById('su-pw2').value;
+        var name = document.getElementById('su-name').value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('이메일 형식이 올바르지 않습니다.'); return; }
+        if (pw.length < 8) { alert('비밀번호는 8자 이상이어야 합니다.'); return; }
+        if (pw !== pw2) { alert('비밀번호가 일치하지 않습니다.'); return; }
+        if (!name) { alert('닉네임을 입력해 주세요.'); return; }
+        window.LB.user.login(email, name);
+        alert('가입이 완료되었습니다! 5,000원 쿠폰이 발급되었습니다.');
+        location.href = 'account/mypage.html';
+      });
+    })();
+  </script>
+</body>
+</html>

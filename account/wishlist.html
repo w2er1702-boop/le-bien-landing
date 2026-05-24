@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>위시리스트 — 르비엔 Le Bien</title>
+  <meta name="description" content="찜한 상품을 한 곳에서 관리하세요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="위시리스트 — 르비엔 Le Bien" />
+  <meta property="og:description" content="찜한 상품 모음." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/account/wishlist.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section class="pagehero">
+      <div class="container">
+        <p class="pagehero__crumb"><a href="index.html">홈</a><span class="pagehero__crumb-sep">›</span><a href="account/mypage.html">마이페이지</a><span class="pagehero__crumb-sep">›</span>위시리스트</p>
+        <h1 class="pagehero__title">위시리스트</h1>
+        <p class="pagehero__sub">찜한 상품 <strong id="wlCount">0</strong>개</p>
+      </div>
+    </section>
+
+    <section class="listing">
+      <div class="container">
+        <ul class="product-grid product-grid--4" id="wlGrid"></ul>
+        <div class="listing__empty" id="wlEmpty" hidden>
+          <div class="listing__empty-icon" aria-hidden="true">🤍</div>
+          <h3>위시리스트가 비어 있습니다</h3>
+          <p>마음에 드는 상품을 찜해 두세요.</p>
+          <a href="index.html" class="btn btn--gold" style="margin-top:8px;">쇼핑 시작하기 →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      function whenReady(fn) {
+        var d = new Promise(function (r) { document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', r) : r(); });
+        Promise.all([d, window.__LB_INCLUDES_READY || Promise.resolve()]).then(fn);
+      }
+      whenReady(function () {
+        fetch('data/products.json').then(function (r) { return r.json(); }).then(function (all) {
+          window.__WL_ALL = all;
+          render();
+        });
+      });
+      window.addEventListener('lb:state', function (e) {
+        if (e.detail && e.detail.type === 'wishlist') render();
+      });
+      function render() {
+        var grid = document.getElementById('wlGrid');
+        var empty = document.getElementById('wlEmpty');
+        var count = document.getElementById('wlCount');
+        var ids = window.LB.wishlist.list();
+        if (count) count.textContent = String(ids.length);
+        if (!window.__WL_ALL) return;
+        if (ids.length === 0) {
+          grid.innerHTML = '';
+          empty.hidden = false;
+          return;
+        }
+        empty.hidden = true;
+        var items = ids.map(function (id) {
+          return window.__WL_ALL.find(function (p) { return p.id === id; });
+        }).filter(Boolean);
+        grid.innerHTML = '';
+        var frag = document.createDocumentFragment();
+        items.forEach(function (p) {
+          var li = window.LBcommon.buildProductCard(p);
+          // attach a remove button overlaid on the card
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('aria-label', '위시리스트에서 제거');
+          btn.style.cssText = 'position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.95);border:1px solid var(--color-border);color:var(--color-hot);font-size:14px;line-height:1;cursor:pointer;z-index:3;';
+          btn.textContent = '✕';
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.LB.wishlist.remove(p.id);
+          });
+          li.style.position = 'relative';
+          li.appendChild(btn);
+          frag.appendChild(li);
+        });
+        grid.appendChild(frag);
+      }
+    })();
+  </script>
+</body>
+</html>

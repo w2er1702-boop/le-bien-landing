@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>장바구니 — 르비엔 Le Bien</title>
+  <meta name="description" content="장바구니에 담긴 상품을 확인하고 결제로 진행하세요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="장바구니 — 르비엔 Le Bien" />
+  <meta property="og:description" content="장바구니." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/account/cart.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section class="pagehero">
+      <div class="container">
+        <p class="pagehero__crumb"><a href="index.html">홈</a><span class="pagehero__crumb-sep">›</span>장바구니</p>
+        <h1 class="pagehero__title">장바구니</h1>
+        <p class="pagehero__sub">담긴 상품 <strong id="ckCount">0</strong>개</p>
+      </div>
+    </section>
+
+    <section class="cartpage">
+      <div class="container">
+        <div id="cartRoot"></div>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      function whenReady(fn) {
+        var d = new Promise(function (r) { document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', r) : r(); });
+        Promise.all([d, window.__LB_INCLUDES_READY || Promise.resolve()]).then(fn);
+      }
+      whenReady(function () {
+        fetch('data/products.json').then(function (r) { return r.json(); }).then(function (all) {
+          window.__CART_ALL = all;
+          render();
+        });
+      });
+      window.addEventListener('lb:state', function (e) {
+        if (e.detail && e.detail.type === 'cart') render();
+      });
+
+      function fmt(n) { return Number(n || 0).toLocaleString('ko-KR'); }
+      function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+      function render() {
+        var root = document.getElementById('cartRoot');
+        var countEl = document.getElementById('ckCount');
+        var items = window.LB.cart.list();
+        if (countEl) countEl.textContent = String(items.reduce(function (a, it) { return a + it.qty; }, 0));
+        if (!window.__CART_ALL) return;
+        var rows = items.map(function (it) {
+          var p = window.__CART_ALL.find(function (x) { return x.id === it.id; });
+          return p ? { p: p, qty: it.qty } : null;
+        }).filter(Boolean);
+        if (rows.length === 0) {
+          root.innerHTML =
+            '<div class="listing__empty">' +
+              '<div class="listing__empty-icon" aria-hidden="true">🛒</div>' +
+              '<h3>장바구니가 비어 있습니다</h3>' +
+              '<p>마음에 드는 상품을 담아보세요.</p>' +
+              '<a href="index.html" class="btn btn--gold" style="margin-top:8px;">쇼핑 시작하기 →</a>' +
+            '</div>';
+          return;
+        }
+        var subtotal = rows.reduce(function (a, r) { return a + r.p.salePrice * r.qty; }, 0);
+        var memberDiscount = rows.reduce(function (a, r) {
+          var diff = (r.p.salePrice - (r.p.memberPrice || r.p.salePrice)) * r.qty;
+          return a + (diff > 0 ? diff : 0);
+        }, 0);
+        var shipping = subtotal >= 50000 ? 0 : 3000;
+        var total = subtotal - memberDiscount + shipping;
+
+        var listHTML = '<div class="cartpage__list">';
+        rows.forEach(function (r) {
+          listHTML +=
+            '<div class="cartitem" data-id="' + r.p.id + '">' +
+              '<div class="cartitem__media"><img src="' + r.p.image + '" alt="" onerror="window.__fallbackImg(this,\'' + esc(r.p.categoryLabel) + '\')"/></div>' +
+              '<div>' +
+                '<span class="cartitem__brand">' + esc(r.p.brand) + '</span>' +
+                '<p class="cartitem__name"><a href="product/' + r.p.id + '.html" style="color:inherit;">' + esc(r.p.name) + '</a></p>' +
+                '<p class="cartitem__price"><del>' + fmt(r.p.originalPrice) + '원</del>' + fmt(r.p.salePrice) + '원</p>' +
+                '<div class="cartitem__qty">' +
+                  '<button type="button" data-act="dec">−</button>' +
+                  '<input type="text" value="' + r.qty + '" readonly aria-label="수량" />' +
+                  '<button type="button" data-act="inc">+</button>' +
+                '</div>' +
+              '</div>' +
+              '<button class="cartitem__remove" type="button" aria-label="삭제" data-act="del">✕</button>' +
+            '</div>';
+        });
+        listHTML += '</div>';
+
+        var summaryHTML =
+          '<aside class="cartpage__summary">' +
+            '<h3>결제 정보</h3>' +
+            '<div class="summary__row"><span>상품 금액</span><span class="val">' + fmt(subtotal) + '원</span></div>' +
+            '<div class="summary__row"><span>회원가 할인</span><span class="val" style="color:var(--color-hot);">-' + fmt(memberDiscount) + '원</span></div>' +
+            '<div class="summary__row"><span>배송비</span><span class="val">' + (shipping === 0 ? '무료' : (fmt(shipping) + '원')) + '</span></div>' +
+            '<div class="summary__row summary__row--total"><span>총 결제금액</span><span class="val">' + fmt(total) + '원</span></div>' +
+            '<button class="btn btn--gold" style="width:100%;justify-content:center;margin-top:14px;" onclick="alert(\'데모 사이트 — 결제는 준비 중입니다. 장바구니는 그대로 유지됩니다.\');">결제하기 (' + fmt(total) + '원)</button>' +
+            '<a href="index.html" class="btn btn--ghost" style="width:100%;justify-content:center;margin-top:8px;">계속 쇼핑하기</a>' +
+            (subtotal < 50000 ? '<p style="margin:10px 0 0;padding:8px 10px;background:var(--color-accent-light);font-size:12px;color:var(--color-primary);border-radius:var(--radius);">' + fmt(50000 - subtotal) + '원 더 담으면 무료배송!</p>' : '') +
+          '</aside>';
+
+        root.innerHTML = '<div class="cartpage__layout">' + listHTML + summaryHTML + '</div>';
+
+        // bind qty/remove
+        root.querySelectorAll('.cartitem').forEach(function (row) {
+          var id = row.getAttribute('data-id');
+          row.querySelector('[data-act="inc"]').addEventListener('click', function () {
+            var cur = (window.LB.cart.list().find(function (x) { return x.id === id; }) || {}).qty || 0;
+            window.LB.cart.update(id, cur + 1);
+          });
+          row.querySelector('[data-act="dec"]').addEventListener('click', function () {
+            var cur = (window.LB.cart.list().find(function (x) { return x.id === id; }) || {}).qty || 0;
+            window.LB.cart.update(id, Math.max(0, cur - 1));
+          });
+          row.querySelector('[data-act="del"]').addEventListener('click', function () {
+            if (confirm('이 상품을 장바구니에서 삭제하시겠습니까?')) window.LB.cart.remove(id);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

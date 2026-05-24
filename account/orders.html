@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>주문조회 — 르비엔 Le Bien</title>
+  <meta name="description" content="주문 내역과 배송 현황을 조회하세요. 비회원 주문조회도 가능합니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="주문조회 — 르비엔 Le Bien" />
+  <meta property="og:description" content="주문 내역 조회." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/account/orders.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section class="pagehero">
+      <div class="container">
+        <p class="pagehero__crumb"><a href="index.html">홈</a><span class="pagehero__crumb-sep">›</span><a href="account/mypage.html">마이페이지</a><span class="pagehero__crumb-sep">›</span>주문조회</p>
+        <h1 class="pagehero__title">주문조회</h1>
+        <p class="pagehero__sub">회원·비회원 모두 주문번호로 조회 가능합니다.</p>
+      </div>
+    </section>
+
+    <section class="container" style="padding:32px 0 56px;">
+      <div id="ordersList"></div>
+
+      <div class="formwrap__inner" style="margin-top:24px;">
+        <h3 style="margin:0 0 14px;font-size:15px;color:var(--color-primary);">비회원 주문조회</h3>
+        <form onsubmit="event.preventDefault(); alert('데모 사이트 — 비회원 조회는 준비 중입니다.');">
+          <div class="field">
+            <label for="g-num">주문번호 <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="text" id="g-num" required placeholder="예: LB20260525-000123" />
+          </div>
+          <div class="field">
+            <label for="g-name">주문자명 <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="text" id="g-name" required placeholder="결제 시 입력한 이름" />
+          </div>
+          <button type="submit" class="btn btn--primary">조회하기</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      function whenReady(fn) {
+        var d = new Promise(function (r) { document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', r) : r(); });
+        Promise.all([d, window.__LB_INCLUDES_READY || Promise.resolve()]).then(fn);
+      }
+      whenReady(function () {
+        var root = document.getElementById('ordersList');
+        var u = window.LB.user.get();
+        if (!u) {
+          root.innerHTML =
+            '<div class="listing__empty">' +
+              '<div class="listing__empty-icon" aria-hidden="true">📦</div>' +
+              '<h3>회원 주문내역을 보려면 로그인해 주세요</h3>' +
+              '<p>또는 아래에서 비회원 주문조회를 이용해 주세요.</p>' +
+              '<a href="account/login.html?next=account/orders.html" class="btn btn--gold" style="margin-top:8px;">로그인 →</a>' +
+            '</div>';
+          return;
+        }
+        root.innerHTML =
+          '<table class="boardtable">' +
+            '<thead><tr>' +
+              '<th class="col-num">주문번호</th>' +
+              '<th>상품</th>' +
+              '<th>주문일</th>' +
+              '<th>결제금액</th>' +
+              '<th>상태</th>' +
+            '</tr></thead>' +
+            '<tbody>' +
+              '<tr><td colspan="5" style="padding:60px;color:var(--color-text-sub);">아직 주문 내역이 없습니다.<br/><a href="index.html" style="color:var(--color-accent);text-decoration:underline;margin-top:10px;display:inline-block;">쇼핑 시작하기 →</a></td></tr>' +
+            '</tbody>' +
+          '</table>';
+      });
+    })();
+  </script>
+</body>
+</html>

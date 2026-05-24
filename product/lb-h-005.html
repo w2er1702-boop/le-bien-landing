@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>상품 상세 — 르비엔 Le Bien</title>
+  <meta name="description" content="르비엔에서 엄선한 상품을 만나보세요. 회원가 추가 할인 · 5만원 이상 무료배송." />
+  <meta property="og:type" content="product" />
+  <meta property="og:title" content="상품 상세 — 르비엔 Le Bien" />
+  <meta property="og:description" content="르비엔에서 엄선한 상품. 회원가 추가 할인 · 5만원 이상 무료배송." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/product/lb-h-005.html" />
+  <meta property="og:site_name" content="Le Bien" />
+  <meta property="og:locale" content="ko_KR" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-product-id="lb-h-005">
+  <div data-include="partials/header.html"></div>
+
+  <main id="pdpRoot">
+    <section class="pagehero" style="padding:18px 0 14px;">
+      <div class="container">
+        <p class="pagehero__crumb" id="pdpCrumb"></p>
+      </div>
+    </section>
+
+    <section class="pdp">
+      <div class="container">
+        <div class="pdp__top">
+
+          <div class="pdp__gallery">
+            <div class="pdp__gallery-main">
+              <img id="pdpMainImg" src="" alt="" />
+            </div>
+            <div class="pdp__gallery-thumbs" id="pdpThumbs" aria-label="상품 이미지 썸네일"></div>
+          </div>
+
+          <div class="pdp__info">
+            <span class="pdp__brand" id="pdpBrand">·</span>
+            <h1 class="pdp__name" id="pdpName">상품을 불러오는 중…</h1>
+            <p class="pdp__rating" id="pdpRating"></p>
+
+            <div class="pdp__price-box" id="pdpPrice"></div>
+
+            <dl class="pdp__meta-list" id="pdpMeta"></dl>
+
+            <div class="pdp__qtybox">
+              <span class="label">수량</span>
+              <div class="pdp__qty">
+                <button type="button" id="pdpQtyMinus" aria-label="수량 감소">−</button>
+                <input type="text" id="pdpQty" value="1" inputmode="numeric" aria-label="수량" />
+                <button type="button" id="pdpQtyPlus" aria-label="수량 증가">+</button>
+              </div>
+            </div>
+
+            <div class="pdp__total">
+              <span class="label">결제 예상 금액</span>
+              <span class="val" id="pdpTotal">0원</span>
+            </div>
+
+            <div class="pdp__actions">
+              <button class="pdp__action-wish" id="pdpWish" type="button" aria-label="위시리스트" aria-pressed="false">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </button>
+              <button class="pdp__action-cart" id="pdpCart" type="button">장바구니 담기</button>
+              <button class="pdp__action-buy"  id="pdpBuy"  type="button">바로 구매</button>
+            </div>
+          </div>
+        </div>
+
+        <nav class="pdp__tabs" aria-label="상품 정보 탭">
+          <button class="pdp__tab is-active" data-tab="detail" type="button">상세설명</button>
+          <button class="pdp__tab" data-tab="reviews" type="button">리뷰 <span id="pdpReviewCount" style="color:var(--color-text-mute);font-weight:500;"></span></button>
+          <button class="pdp__tab" data-tab="ship" type="button">배송·교환·반품</button>
+          <button class="pdp__tab" data-tab="qna" type="button">상품 Q&amp;A</button>
+        </nav>
+
+        <div class="pdp__panel is-active" data-pane="detail">
+          <h3>왜 르비엔이 골랐나</h3>
+          <p>르비엔은 자체 셀렉션 기준 — <strong>일상에서 정말 좋은 차이를 만드는가</strong> — 에 부합하는 상품만 모읍니다. 이 상품은 그 까다로운 기준을 통과한 라인업입니다.</p>
+          <h3>사용법</h3>
+          <p>상품 패키지 또는 라벨의 안내를 따라 사용하세요. 특이사항이 있을 경우 고객센터로 문의 주세요.</p>
+          <h3>주의사항</h3>
+          <ul>
+            <li>직사광선·고온·다습한 곳을 피해 보관하세요.</li>
+            <li>어린이의 손이 닿지 않는 곳에 보관하세요.</li>
+            <li>이상이 생긴 경우 즉시 사용을 중단하고 전문가에게 상담하세요.</li>
+          </ul>
+        </div>
+
+        <div class="pdp__panel" data-pane="reviews">
+          <p>평균 평점 <strong id="pdpRatingAvg" style="color:var(--color-accent);font-size:18px;">0.0</strong></p>
+          <ul id="pdpReviews" style="margin:8px 0 0;padding:0;list-style:none;"></ul>
+        </div>
+
+        <div class="pdp__panel" data-pane="ship">
+          <h3>배송 안내</h3>
+          <ul>
+            <li>5만원 이상 주문 시 무료배송, 그 외 3,000원</li>
+            <li>평일 14:00 이전 결제 시 당일 출고 · 익일 또는 2일 내 도착</li>
+            <li>도서산간 지역은 추가 배송비가 발생할 수 있습니다</li>
+          </ul>
+          <h3>교환·반품</h3>
+          <ul>
+            <li>수령 후 7일 이내 마이페이지 → 주문내역 → 교환·반품 신청</li>
+            <li>단순 변심 시 왕복 배송비 부담</li>
+            <li>화장품·건강기능식품·위생용품은 개봉 시 반품 제한 가능</li>
+          </ul>
+          <p><a href="help/shipping.html" style="color:var(--color-accent);text-decoration:underline;">자세한 배송 안내 →</a></p>
+        </div>
+
+        <div class="pdp__panel" data-pane="qna">
+          <p>상품에 대한 문의는 1:1 문의로 보내주세요. 영업일 기준 1일 이내 답변드립니다.</p>
+          <p><a href="support/inquiry.html" class="btn btn--gold-outline" style="margin-top:8px;">상품 문의하기 →</a></p>
+        </div>
+
+        <section style="margin-top:48px;">
+          <h2 style="font-size:20px;font-weight:800;color:var(--color-primary);letter-spacing:-0.4px;margin:0 0 16px;">함께 보면 좋은 상품</h2>
+          <ul class="product-grid product-grid--4" id="pdpRec" aria-live="polite">
+            <li class="product-skeleton" aria-hidden="true"></li>
+            <li class="product-skeleton" aria-hidden="true"></li>
+            <li class="product-skeleton" aria-hidden="true"></li>
+            <li class="product-skeleton" aria-hidden="true"></li>
+          </ul>
+        </section>
+
+      </div>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 /* ============================================================
-   Le Bien — main.js (Costco-structured)
-   Vanilla ES6+. No dependencies.
+   Le Bien — main.js
+   Common UI behaviors + product-card builder shared across pages.
+   Waits for header/footer includes to finish before binding.
    ============================================================ */
 
 (function () {
@@ -12,8 +13,8 @@
   window.__fallbackImg = function (img, label) {
     if (img.dataset.fallback === '1') return;
     img.dataset.fallback = '1';
-    const text = (label || img.alt || 'Le Bien').replace(/&/g, '&amp;').replace(/</g, '&lt;');
-    const svg =
+    var text = (label || img.alt || 'Le Bien').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    var svg =
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">' +
       '<rect width="400" height="400" fill="#0A2540"/>' +
       '<text x="200" y="195" font-family="Pretendard, Apple SD Gothic Neo, sans-serif" font-size="22" fill="#C9A961" text-anchor="middle" font-weight="700">Le Bien</text>' +
@@ -23,37 +24,48 @@
   };
 
   /* ---------------------------------------------------------
-   * DOM ready
+   * Boot — wait for partials (header/footer) before initing
    * --------------------------------------------------------- */
-  document.addEventListener('DOMContentLoaded', function () {
+  function whenReady(fn) {
+    var domReady = new Promise(function (resolve) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolve);
+      } else { resolve(); }
+    });
+    var includes = window.__LB_INCLUDES_READY || Promise.resolve();
+    Promise.all([domReady, includes]).then(fn);
+  }
+
+  whenReady(function () {
     initHeroCarousel();
     initMobileMenu();
     initFooterAccordion();
     initTopButton();
     initCountdown();
-    loadProducts();
+    initActiveNav();
+    loadHomeProducts();
   });
 
   /* =========================================================
    * Hero Carousel
    * ========================================================= */
   function initHeroCarousel() {
-    const track = document.getElementById('heroTrack');
-    const dotsWrap = document.getElementById('heroDots');
-    const counter = document.getElementById('heroCounter');
-    const prevBtn = document.getElementById('heroPrev');
-    const nextBtn = document.getElementById('heroNext');
+    var track = document.getElementById('heroTrack');
+    var dotsWrap = document.getElementById('heroDots');
+    var counter = document.getElementById('heroCounter');
+    var prevBtn = document.getElementById('heroPrev');
+    var nextBtn = document.getElementById('heroNext');
     if (!track || !dotsWrap) return;
 
-    const slides = Array.from(track.children);
-    const count = slides.length;
-    let current = 0;
-    let timer = null;
-    const AUTO_MS = 5000;
-    const RESUME_MS = 7000;
+    var slides = Array.prototype.slice.call(track.children);
+    var count = slides.length;
+    var current = 0;
+    var timer = null;
+    var AUTO_MS = 5000;
+    var RESUME_MS = 7000;
 
     slides.forEach(function (_, i) {
-      const b = document.createElement('button');
+      var b = document.createElement('button');
       b.type = 'button';
       b.className = 'hero-carousel__dot';
       b.setAttribute('role', 'tab');
@@ -61,7 +73,7 @@
       b.addEventListener('click', function () { go(i); pauseAndResume(); });
       dotsWrap.appendChild(b);
     });
-    const dots = Array.from(dotsWrap.children);
+    var dots = Array.prototype.slice.call(dotsWrap.children);
 
     function update() {
       track.style.transform = 'translateX(-' + (current * 100) + '%)';
@@ -82,7 +94,7 @@
     if (prevBtn) prevBtn.addEventListener('click', function () { prev(); pauseAndResume(); });
     if (nextBtn) nextBtn.addEventListener('click', function () { next(); pauseAndResume(); });
 
-    const viewport = track.parentElement;
+    var viewport = track.parentElement;
     if (viewport) {
       viewport.addEventListener('mouseenter', stopAuto);
       viewport.addEventListener('mouseleave', startAuto);
@@ -96,12 +108,11 @@
       if (document.hidden) stopAuto(); else startAuto();
     });
 
-    // touch swipe
-    let touchX = null;
+    var touchX = null;
     track.addEventListener('touchstart', function (e) { touchX = e.touches[0].clientX; }, { passive: true });
     track.addEventListener('touchend', function (e) {
       if (touchX === null) return;
-      const dx = e.changedTouches[0].clientX - touchX;
+      var dx = e.changedTouches[0].clientX - touchX;
       if (Math.abs(dx) > 40) {
         if (dx < 0) next(); else prev();
         pauseAndResume();
@@ -117,10 +128,10 @@
    * Mobile Menu
    * ========================================================= */
   function initMobileMenu() {
-    const btn = document.getElementById('hamburgerBtn');
-    const menu = document.getElementById('mobileMenu');
-    const closeBtn = document.getElementById('mobileMenuClose');
-    const backdrop = document.getElementById('mobileMenuBackdrop');
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    var closeBtn = document.getElementById('mobileMenuClose');
+    var backdrop = document.getElementById('mobileMenuBackdrop');
     if (!btn || !menu) return;
 
     function open() {
@@ -148,14 +159,14 @@
    * Footer accordion (mobile)
    * ========================================================= */
   function initFooterAccordion() {
-    const titles = document.querySelectorAll('.footer__title[data-accordion]');
+    var titles = document.querySelectorAll('.footer__title[data-accordion]');
     titles.forEach(function (t) {
       t.setAttribute('role', 'button');
       t.setAttribute('tabindex', '0');
       t.setAttribute('aria-expanded', 'false');
       function toggle() {
-        const col = t.parentElement;
-        const open = col.classList.toggle('is-open');
+        var col = t.parentElement;
+        var open = col.classList.toggle('is-open');
         t.setAttribute('aria-expanded', open ? 'true' : 'false');
       }
       t.addEventListener('click', toggle);
@@ -169,7 +180,7 @@
    * Top button
    * ========================================================= */
   function initTopButton() {
-    const btn = document.getElementById('topBtn');
+    var btn = document.getElementById('topBtn');
     if (!btn) return;
     function update() {
       btn.classList.toggle('is-visible', window.scrollY > 400);
@@ -182,12 +193,23 @@
   }
 
   /* =========================================================
+   * Active nav highlight — based on body[data-page-cat]
+   * ========================================================= */
+  function initActiveNav() {
+    var cat = document.body.getAttribute('data-page-cat');
+    if (!cat) return;
+    document.querySelectorAll('.catnav__list a[data-cat="' + cat + '"]').forEach(function (a) {
+      a.classList.add('is-active');
+    });
+  }
+
+  /* =========================================================
    * Countdown — counts down to next Sunday 23:59:59
    * ========================================================= */
   function initCountdown() {
-    const box = document.getElementById('countdown');
+    var box = document.getElementById('countdown');
     if (!box) return;
-    const cells = {
+    var cells = {
       d: box.querySelector('[data-unit="d"]'),
       h: box.querySelector('[data-unit="h"]'),
       m: box.querySelector('[data-unit="m"]'),
@@ -195,23 +217,23 @@
     };
 
     function nextDeadline() {
-      const now = new Date();
-      const d = new Date(now);
-      const day = d.getDay(); // 0=Sun
-      const daysUntilSun = (7 - day) % 7;
+      var now = new Date();
+      var d = new Date(now);
+      var day = d.getDay();
+      var daysUntilSun = (7 - day) % 7;
       d.setDate(d.getDate() + (daysUntilSun === 0 ? 7 : daysUntilSun));
       d.setHours(23, 59, 59, 999);
       return d;
     }
-    const deadline = nextDeadline();
+    var deadline = nextDeadline();
 
     function pad(n) { return n < 10 ? '0' + n : String(n); }
     function tick() {
-      let diff = Math.max(0, deadline - new Date());
-      const day = Math.floor(diff / 86400000); diff -= day * 86400000;
-      const hr  = Math.floor(diff / 3600000);  diff -= hr * 3600000;
-      const min = Math.floor(diff / 60000);    diff -= min * 60000;
-      const sec = Math.floor(diff / 1000);
+      var diff = Math.max(0, deadline - new Date());
+      var day = Math.floor(diff / 86400000); diff -= day * 86400000;
+      var hr  = Math.floor(diff / 3600000);  diff -= hr * 3600000;
+      var min = Math.floor(diff / 60000);    diff -= min * 60000;
+      var sec = Math.floor(diff / 1000);
       cells.d.textContent = pad(day);
       cells.h.textContent = pad(hr);
       cells.m.textContent = pad(min);
@@ -222,14 +244,14 @@
   }
 
   /* =========================================================
-   * Products — multi-section render
+   * Home (landing) — multi-section product render
    * ========================================================= */
-  function loadProducts() {
-    fetch('./data/products.json', { cache: 'no-cache' })
-      .then(function (res) {
-        if (!res.ok) throw new Error('products.json fetch failed: ' + res.status);
-        return res.json();
-      })
+  function loadHomeProducts() {
+    // Only run when there are home-style sections to fill.
+    var any = document.querySelector('.product-grid[data-section]');
+    if (!any) return;
+
+    fetchProducts()
       .then(function (all) {
         renderSection('hot',     filterHot(all),     5);
         renderSection('online',  filterOnline(all),  5);
@@ -237,7 +259,7 @@
         renderSection('new',     filterNew(all),     5);
       })
       .catch(function () {
-        document.querySelectorAll('.product-grid').forEach(function (grid) {
+        document.querySelectorAll('.product-grid[data-section]').forEach(function (grid) {
           grid.innerHTML =
             '<li style="grid-column: 1 / -1; padding: 24px; text-align:center; color: var(--color-text-sub);">' +
             '상품 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.' +
@@ -246,17 +268,27 @@
       });
   }
 
+  var _productsCache = null;
+  function fetchProducts() {
+    if (_productsCache) return Promise.resolve(_productsCache);
+    return fetch('data/products.json', { cache: 'no-cache' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('products.json fetch failed: ' + res.status);
+        return res.json();
+      })
+      .then(function (json) { _productsCache = json; return json; });
+  }
+
   function filterHot(all) {
-    // hot deal — has 핫딜 tag, OR discountRate >= 40
-    const hot = all.filter(function (p) {
+    var hot = all.filter(function (p) {
       return (p.tags && p.tags.indexOf('핫딜') !== -1) || (p.discountRate || 0) >= 40;
     });
     return uniqueByCategory(hot).slice(0, 5);
   }
   function filterOnline(all) {
-    const online = all.filter(function (p) { return p.tags && p.tags.indexOf('온라인단독') !== -1; });
+    var online = all.filter(function (p) { return p.tags && p.tags.indexOf('온라인단독') !== -1; });
     if (online.length < 5) {
-      const rest = all
+      var rest = all
         .filter(function (p) { return online.indexOf(p) === -1; })
         .sort(function (a, b) { return (b.discountRate || 0) - (a.discountRate || 0); });
       return online.concat(rest).slice(0, 5);
@@ -264,10 +296,9 @@
     return uniqueByCategory(online).slice(0, 5);
   }
   function filterNew(all) {
-    const news = all.filter(function (p) { return p.tags && p.tags.indexOf('NEW') !== -1; });
-    // if too few new items, pad with highest-rated non-new
+    var news = all.filter(function (p) { return p.tags && p.tags.indexOf('NEW') !== -1; });
     if (news.length < 5) {
-      const rest = all
+      var rest = all
         .filter(function (p) { return news.indexOf(p) === -1; })
         .sort(function (a, b) { return b.rating - a.rating; });
       return news.concat(rest).slice(0, 5);
@@ -275,12 +306,12 @@
     return news.slice(0, 5);
   }
   function pickAcrossCats(all) {
-    const byCat = {};
+    var byCat = {};
     all.forEach(function (p) { (byCat[p.category] = byCat[p.category] || []).push(p); });
-    const order = ['beauty', 'health', 'living', 'kitchen'];
-    const picked = [];
+    var order = ['beauty', 'health', 'living', 'kitchen'];
+    var picked = [];
     order.forEach(function (c) {
-      const arr = byCat[c] || [];
+      var arr = byCat[c] || [];
       picked.push.apply(picked, arr.slice(0, 2));
     });
     if (picked.length < 8) {
@@ -289,54 +320,53 @@
     return picked.slice(0, 8);
   }
   function uniqueByCategory(arr) {
-    const seen = {};
-    const out = [];
+    var seen = {};
+    var out = [];
     arr.forEach(function (p) {
       if (!seen[p.category]) { seen[p.category] = 1; out.push(p); }
     });
-    // then top up from arr
     arr.forEach(function (p) { if (out.indexOf(p) === -1) out.push(p); });
     return out;
   }
 
   function renderSection(sectionName, products, limit) {
-    const grid = document.querySelector('.product-grid[data-section="' + sectionName + '"]');
+    var grid = document.querySelector('.product-grid[data-section="' + sectionName + '"]');
     if (!grid) return;
     grid.innerHTML = '';
-    const frag = document.createDocumentFragment();
+    var frag = document.createDocumentFragment();
     products.slice(0, limit).forEach(function (p) { frag.appendChild(buildProductCard(p)); });
     grid.appendChild(frag);
   }
 
+  /* =========================================================
+   * Product card (reused by listing / brand / search / product)
+   * ========================================================= */
   function buildProductCard(p) {
-    const li = document.createElement('li');
+    var li = document.createElement('li');
 
-    const a = document.createElement('a');
-    a.href = p.link || '#';
+    var a = document.createElement('a');
+    a.href = 'product/' + p.id + '.html';
     a.className = 'pcard';
     a.setAttribute('aria-label', p.brand + ' ' + p.name + ' ' + formatWon(p.salePrice));
 
-    /* ---------- media ---------- */
-    const media = document.createElement('div');
+    var media = document.createElement('div');
     media.className = 'pcard__media';
 
-    // discount badge (left top)
     if (p.discountRate && p.discountRate > 0) {
-      const set = document.createElement('span');
+      var set = document.createElement('span');
       set.className = 'pcard__badge-set';
-      const dBadge = document.createElement('span');
+      var dBadge = document.createElement('span');
       dBadge.className = 'pcard__badge pcard__badge--discount';
       dBadge.textContent = '-' + p.discountRate + '%';
       set.appendChild(dBadge);
       media.appendChild(set);
     }
 
-    // tag chips (right top)
     if (p.tags && p.tags.length) {
-      const tagWrap = document.createElement('span');
+      var tagWrap = document.createElement('span');
       tagWrap.className = 'pcard__tags';
       p.tags.slice(0, 3).forEach(function (tag) {
-        const el = document.createElement('span');
+        var el = document.createElement('span');
         el.className = 'pcard__tag ' + classForTag(tag);
         el.textContent = tag;
         tagWrap.appendChild(el);
@@ -344,83 +374,81 @@
       media.appendChild(tagWrap);
     }
 
-    // instant discount yellow sticker (left bottom)
     if (p.instantDiscount && p.instantDiscount > 0) {
-      const instant = document.createElement('span');
+      var instant = document.createElement('span');
       instant.className = 'pcard__instant';
       instant.textContent = '₩' + formatNum(p.instantDiscount) + ' 즉시할인';
       media.appendChild(instant);
     }
 
-    const img = document.createElement('img');
+    var img = document.createElement('img');
     img.loading = 'lazy';
     img.decoding = 'async';
     img.src = p.image;
     img.alt = p.brand + ' ' + p.name;
-    const label = p.categoryLabel || '';
+    var label = p.categoryLabel || '';
     img.onerror = function () { window.__fallbackImg(img, label); };
     media.appendChild(img);
 
-    /* ---------- body ---------- */
-    const body = document.createElement('div');
+    var body = document.createElement('div');
     body.className = 'pcard__body';
 
-    const brand = document.createElement('p');
+    var brand = document.createElement('p');
     brand.className = 'pcard__brand';
     brand.textContent = p.brand;
 
-    const name = document.createElement('p');
+    var name = document.createElement('p');
     name.className = 'pcard__name';
     name.textContent = p.name;
 
-    let unit = null;
+    var unit = null;
     if (p.unit) {
       unit = document.createElement('span');
       unit.className = 'pcard__unit';
       unit.textContent = p.unit;
     }
 
-    const priceRow = document.createElement('div');
+    var priceRow = document.createElement('div');
     priceRow.className = 'pcard__price-row';
     if (p.discountRate && p.discountRate > 0 && p.originalPrice > p.salePrice) {
-      const orig = document.createElement('span');
+      var orig = document.createElement('span');
       orig.className = 'pcard__price-original';
       orig.textContent = formatWon(p.originalPrice);
       priceRow.appendChild(orig);
 
-      const disc = document.createElement('span');
+      var disc = document.createElement('span');
       disc.className = 'pcard__discount';
       disc.textContent = '-' + p.discountRate + '%';
       priceRow.appendChild(disc);
     }
 
-    const sale = document.createElement('span');
+    var sale = document.createElement('span');
     sale.className = 'pcard__price-sale';
     sale.innerHTML = formatNum(p.salePrice) + '<span class="won">원</span>';
 
-    let member = null;
+    var member = null;
     if (p.memberPrice && p.memberPrice < p.salePrice) {
       member = document.createElement('span');
       member.className = 'pcard__member';
-      const lbl = document.createElement('span');
+      var lbl = document.createElement('span');
       lbl.className = 'pcard__member-label';
       lbl.textContent = '회원가';
-      const val = document.createElement('span');
+      var val = document.createElement('span');
       val.className = 'pcard__member-price';
       val.innerHTML = formatNum(p.memberPrice) + '<span class="won">원</span>';
       member.appendChild(lbl);
       member.appendChild(val);
     }
 
-    const meta = document.createElement('div');
+    var meta = document.createElement('div');
     meta.className = 'pcard__meta';
-    const stars = document.createElement('span');
+    var stars = document.createElement('span');
     stars.className = 'pcard__stars';
     stars.setAttribute('aria-hidden', 'true');
     stars.textContent = renderStars(p.rating);
     meta.appendChild(stars);
     meta.appendChild(document.createTextNode(' ' + p.rating.toFixed(1)));
-    const rev = document.createElement('span');
+    var rev = document.createElement('span');
     rev.className = 'pcard__review';
     rev.textContent = '(' + formatNum(p.reviewCount) + ')';
     meta.appendChild(rev);
@@ -447,10 +475,20 @@
     return '';
   }
 
-  function formatNum(n) { return Number(n).toLocaleString('ko-KR'); }
+  function formatNum(n) { return Number(n || 0).toLocaleString('ko-KR'); }
   function formatWon(n) { return formatNum(n) + '원'; }
   function renderStars(rating) {
-    const full = Math.round(rating);
+    var full = Math.round(rating);
     return '★★★★★☆☆☆☆☆'.slice(5 - full, 10 - full);
   }
+
+  /* Expose for other page scripts (listing.js, product.js, etc.) */
+  window.LBcommon = {
+    fetchProducts: fetchProducts,
+    buildProductCard: buildProductCard,
+    classForTag: classForTag,
+    formatNum: formatNum,
+    formatWon: formatWon,
+    renderStars: renderStars
+  };
 })();

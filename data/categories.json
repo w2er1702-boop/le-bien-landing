@@ -1,0 +1,62 @@
+{
+  "beauty": {
+    "key": "beauty",
+    "label": "뷰티",
+    "title": "Beauty",
+    "subtitle": "데일리 케어부터 프리미엄 스킨케어까지, 르비엔이 직접 고른 뷰티 셀렉션",
+    "icon": "💄",
+    "heroBg": "linear-gradient(135deg, #FBE9EE 0%, #F5D6DE 100%)",
+    "heroTone": "light",
+    "available": true
+  },
+  "health": {
+    "key": "health",
+    "label": "건강기능식품",
+    "title": "Health & Wellness",
+    "subtitle": "오메가3·프로바이오틱스·홍삼까지 — 매일 챙겨야 할 건강 셀렉션",
+    "icon": "🌿",
+    "heroBg": "linear-gradient(135deg, #E7F2EA 0%, #CDE6D4 100%)",
+    "heroTone": "light",
+    "available": true
+  },
+  "living": {
+    "key": "living",
+    "label": "생활용품",
+    "title": "Living",
+    "subtitle": "매일 쓰는 물건은 좋은 것으로. 친환경 세제부터 면 거즈까지",
+    "icon": "🧴",
+    "heroBg": "linear-gradient(135deg, #EAF0F7 0%, #D5E2EE 100%)",
+    "heroTone": "light",
+    "available": true
+  },
+  "kitchen": {
+    "key": "kitchen",
+    "label": "주방용품",
+    "title": "Kitchen Essentials",
+    "subtitle": "프렌치 우드 도마, 인덕션 후라이팬, 무쇠 더치오븐 — 한 끼의 격을 올리는 도구들",
+    "icon": "🍳",
+    "heroBg": "linear-gradient(135deg, #FDF1E3 0%, #F7E2C4 100%)",
+    "heroTone": "light",
+    "available": true
+  },
+  "food": {
+    "key": "food",
+    "label": "식품·베이커리",
+    "title": "Food & Bakery",
+    "subtitle": "지역 장인의 식재료와 베이커리. 곧 르비엔에서 만나보세요.",
+    "icon": "🥖",
+    "heroBg": "linear-gradient(135deg, #F5EBDC 0%, #E5D2B0 100%)",
+    "heroTone": "light",
+    "available": false
+  },
+  "fashion": {
+    "key": "fashion",
+    "label": "패션·잡화",
+    "title": "Fashion & Accessories",
+    "subtitle": "데일리 룩에 가벼운 차이를 더하는 아이템. 곧 르비엔에서 만나보세요.",
+    "icon": "👜",
+    "heroBg": "linear-gradient(135deg, #F0E8F4 0%, #DAC9E4 100%)",
+    "heroTone": "light",
+    "available": false
+  }
+}

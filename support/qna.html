@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>상품 Q&amp;A — 르비엔 Le Bien</title>
+  <meta name="description" content="상품에 관한 질문과 답변." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="상품 Q&amp;A — 르비엔 Le Bien" />
+  <meta property="og:description" content="상품 Q&A." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/support/qna.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section class="pagehero">
+      <div class="container">
+        <p class="pagehero__crumb"><a href="index.html">홈</a><span class="pagehero__crumb-sep">›</span>고객지원<span class="pagehero__crumb-sep">›</span>상품 Q&amp;A</p>
+        <h1 class="pagehero__title">상품 Q&amp;A</h1>
+        <p class="pagehero__sub">상품에 관한 질문과 답변을 확인하세요.</p>
+      </div>
+    </section>
+
+    <section class="container" style="padding:32px 0 56px;">
+      <div style="text-align:right;margin-bottom:14px;">
+        <a href="support/inquiry.html" class="btn btn--gold-outline">질문 작성하기</a>
+      </div>
+      <table class="boardtable">
+        <thead><tr>
+          <th class="col-num" style="width:60px;">번호</th>
+          <th style="width:90px;">상태</th>
+          <th>제목</th>
+          <th style="width:90px;">작성자</th>
+          <th style="width:110px;">작성일</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="col-num">12</td>
+            <td><span class="badge--cat" style="background:#2E7D5D;">답변완료</span></td>
+            <td class="title"><a href="#" onclick="event.preventDefault();">[상품] 노르웨이산 알티지 오메가3 — 식사 전·후 언제 먹나요?</a></td>
+            <td>김**</td>
+            <td>2026-05-22</td>
+          </tr>
+          <tr>
+            <td class="col-num">11</td>
+            <td><span class="badge--cat" style="background:#2E7D5D;">답변완료</span></td>
+            <td class="title"><a href="#" onclick="event.preventDefault();">[상품] 무쇠 더치오븐 길들이기는 어떻게 하나요?</a></td>
+            <td>이**</td>
+            <td>2026-05-19</td>
+          </tr>
+          <tr>
+            <td class="col-num">10</td>
+            <td><span class="badge--cat" style="background:#2E7D5D;">답변완료</span></td>
+            <td class="title"><a href="#" onclick="event.preventDefault();">[상품] 데일리 비타민C 세럼 — 임산부도 사용 가능한가요?</a></td>
+            <td>박**</td>
+            <td>2026-05-18</td>
+          </tr>
+          <tr>
+            <td class="col-num">9</td>
+            <td><span class="badge--cat" style="background:var(--color-text-mute);">답변대기</span></td>
+            <td class="title"><a href="#" onclick="event.preventDefault();">[상품] 프로바이오틱스 — 항생제 복용 중 같이 먹어도 되나요?</a></td>
+            <td>최**</td>
+            <td>2026-05-24</td>
+          </tr>
+          <tr>
+            <td class="col-num">8</td>
+            <td><span class="badge--cat" style="background:#2E7D5D;">답변완료</span></td>
+            <td class="title"><a href="#" onclick="event.preventDefault();">[상품] 인덕션 후라이팬 28cm — 인덕션 호환 가능한가요?</a></td>
+            <td>정**</td>
+            <td>2026-05-12</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:18px;text-align:center;font-size:12px;color:var(--color-text-mute);">데모 사이트 — 위 Q&A는 예시 데이터입니다.</p>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

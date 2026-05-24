@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>1:1 문의 — 르비엔 Le Bien</title>
+  <meta name="description" content="르비엔 1:1 문의. 영업일 기준 1일 이내 답변드립니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="1:1 문의 — 르비엔 Le Bien" />
+  <meta property="og:description" content="1:1 문의." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/support/inquiry.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main class="formwrap">
+    <div class="container">
+      <div class="formwrap__inner formwrap__inner--wide">
+        <h1 class="formwrap__title">1:1 문의</h1>
+        <p class="formwrap__sub">영업일 기준 1일 이내에 답변드립니다.</p>
+
+        <form id="inqForm" onsubmit="event.preventDefault(); alert('데모 사이트 — 문의 접수 시뮬레이션 완료.\n실제 운영 시에는 마이페이지에서 답변을 확인하실 수 있습니다.'); this.reset();">
+          <div class="field">
+            <label for="iq-type">문의 유형 <span class="req" aria-hidden="true">*</span></label>
+            <select id="iq-type" class="select" required>
+              <option value="">선택해 주세요</option>
+              <option>주문/결제</option>
+              <option>배송 문의</option>
+              <option>교환/반품</option>
+              <option>상품 문의</option>
+              <option>회원/멤버십</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div class="field--row">
+            <div class="field">
+              <label for="iq-name">이름 <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="iq-name" class="input" required />
+            </div>
+            <div class="field">
+              <label for="iq-email">이메일 <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="iq-email" class="input" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="iq-order">주문번호 (선택)</label>
+            <input type="text" id="iq-order" class="input" placeholder="LB20260525-000123" />
+          </div>
+          <div class="field">
+            <label for="iq-title">제목 <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="iq-title" class="input" required maxlength="60" />
+          </div>
+          <div class="field">
+            <label for="iq-body">문의 내용 <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="iq-body" class="textarea" required minlength="10" placeholder="구체적인 상황을 적어주시면 더 빠른 처리가 가능합니다."></textarea>
+          </div>
+          <label class="check" style="margin-bottom:18px;">
+            <input type="checkbox" required /> [필수] 문의 처리를 위한 개인정보 수집·이용에 동의합니다.
+          </label>
+          <button type="submit" class="btn btn--primary">문의 보내기</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

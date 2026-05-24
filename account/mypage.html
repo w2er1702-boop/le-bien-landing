@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>마이페이지 — 르비엔 Le Bien</title>
+  <meta name="description" content="르비엔 마이페이지. 주문 내역, 쿠폰, 적립금, 위시리스트 확인." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="마이페이지 — 르비엔 Le Bien" />
+  <meta property="og:description" content="르비엔 마이페이지." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/account/mypage.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main class="dashboard">
+    <div class="container">
+      <div id="myAuth"></div>
+    </div>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      function whenReady(fn) {
+        var d = new Promise(function (r) { document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', r) : r(); });
+        Promise.all([d, window.__LB_INCLUDES_READY || Promise.resolve()]).then(fn);
+      }
+      whenReady(render);
+      window.addEventListener('lb:state', function (e) { if (e.detail && e.detail.type === 'user') render(); });
+
+      function render() {
+        var root = document.getElementById('myAuth');
+        if (!root) return;
+        var u = window.LB.user.get();
+        if (!u) {
+          root.innerHTML =
+            '<div class="dashboard__greet" style="text-align:center;display:block;">' +
+              '<h2>로그인이 필요합니다</h2>' +
+              '<p>마이페이지 이용을 위해 로그인해 주세요.</p>' +
+              '<a href="account/login.html?next=account/mypage.html" class="btn btn--gold-lg" style="margin-top:16px;">로그인하기 →</a>' +
+            '</div>';
+          return;
+        }
+        var cartCount = window.LB.cart.count();
+        var wishCount = window.LB.wishlist.count();
+        root.innerHTML =
+          '<div class="dashboard__greet">' +
+            '<div>' +
+              '<h2><em>' + esc(u.nickname) + '</em>님, 안녕하세요</h2>' +
+              '<p>' + esc(u.email) + ' · Standard 회원</p>' +
+            '</div>' +
+            '<div class="dashboard__stats">' +
+              '<div class="dashboard__stat"><span class="dashboard__stat-num">2</span><span class="dashboard__stat-label">쿠폰</span></div>' +
+              '<div class="dashboard__stat"><span class="dashboard__stat-num">3,250</span><span class="dashboard__stat-label">적립금</span></div>' +
+              '<div class="dashboard__stat"><span class="dashboard__stat-num">' + cartCount + '</span><span class="dashboard__stat-label">장바구니</span></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="dashboard__grid">' +
+            '<div class="dashboard__card">' +
+              '<h3>주문 / 배송 <a href="account/orders.html">전체보기 →</a></h3>' +
+              '<ul class="dashboard__list">' +
+                '<li><span class="label">결제완료</span><span class="value">0</span></li>' +
+                '<li><span class="label">배송준비</span><span class="value">0</span></li>' +
+                '<li><span class="label">배송중</span><span class="value">0</span></li>' +
+                '<li><span class="label">배송완료</span><span class="value">0</span></li>' +
+              '</ul>' +
+            '</div>' +
+            '<div class="dashboard__card">' +
+              '<h3>혜택 <a href="membership.html">멤버십 →</a></h3>' +
+              '<ul class="dashboard__list">' +
+                '<li><span class="label">쿠폰</span><span class="value">2장</span></li>' +
+                '<li><span class="label">적립금</span><span class="value">3,250원</span></li>' +
+                '<li><span class="label">회원등급</span><span class="value">Standard</span></li>' +
+              '</ul>' +
+            '</div>' +
+            '<div class="dashboard__card">' +
+              '<h3>나의 상품 <a href="account/wishlist.html">위시 →</a></h3>' +
+              '<ul class="dashboard__list">' +
+                '<li><span class="label">위시리스트</span><span class="value">' + wishCount + '개</span></li>' +
+                '<li><span class="label">장바구니</span><span class="value">' + cartCount + '개</span></li>' +
+                '<li><span class="label">리뷰 작성가능</span><span class="value">0</span></li>' +
+              '</ul>' +
+            '</div>' +
+            '<div class="dashboard__card">' +
+              '<h3>1:1 문의 <a href="support/inquiry.html">문의하기 →</a></h3>' +
+              '<ul class="dashboard__list">' +
+                '<li><span class="label">미답변</span><span class="value">0</span></li>' +
+                '<li><span class="label">답변완료</span><span class="value">0</span></li>' +
+              '</ul>' +
+            '</div>' +
+            '<div class="dashboard__card">' +
+              '<h3>회원 정보</h3>' +
+              '<ul class="dashboard__list">' +
+                '<li><span class="label">이메일</span><span class="value">' + esc(u.email) + '</span></li>' +
+                '<li><span class="label">닉네임</span><span class="value">' + esc(u.nickname) + '</span></li>' +
+              '</ul>' +
+              '<button class="btn btn--ghost" type="button" onclick="window.LB.user.logout()" style="width:100%;margin-top:10px;">로그아웃</button>' +
+            '</div>' +
+            '<div class="dashboard__card" style="background:var(--color-primary);color:#fff;border-color:var(--color-primary);">' +
+              '<h3 style="color:#fff;">고객센터</h3>' +
+              '<p style="font-size:13px;color:rgba(255,255,255,0.78);line-height:1.6;margin:0 0 10px;">1644-0000<br/>평일 10:00 ~ 18:00</p>' +
+              '<a href="support/center.html" class="btn btn--gold" style="width:100%;text-align:center;justify-content:center;">고객센터 →</a>' +
+            '</div>' +
+          '</div>';
+      }
+      function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    })();
+  </script>
+</body>
+</html>

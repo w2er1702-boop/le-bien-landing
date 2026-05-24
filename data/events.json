@@ -1,0 +1,35 @@
+{
+  "hot": {
+    "key": "hot",
+    "label": "이주의 핫딜",
+    "title": "🔥 HOT DEAL",
+    "subtitle": "남은 시간 안에만 받을 수 있는 한정 특가",
+    "tone": "hot",
+    "deadlineWeekly": true,
+    "rule": "discountRate≥40 OR tags contains 핫딜"
+  },
+  "online": {
+    "key": "online",
+    "label": "온라인 단독",
+    "title": "💎 ONLINE ONLY",
+    "subtitle": "르비엔 온라인에서만 만나는 가격. 매장에는 없습니다.",
+    "tone": "online",
+    "rule": "tags contains 온라인단독"
+  },
+  "members": {
+    "key": "members",
+    "label": "멤버스 PICK",
+    "title": "⭐ MEMBERS PICK",
+    "subtitle": "MD가 까다롭게 골라 담은 르비엔 멤버 전용 셀렉션",
+    "tone": "members",
+    "rule": "across categories, MD pick"
+  },
+  "new": {
+    "key": "new",
+    "label": "신상품",
+    "title": "✨ NEW ARRIVAL",
+    "subtitle": "이주에 새로 들여온 르비엔 셀렉션",
+    "tone": "new",
+    "rule": "tags contains NEW"
+  }
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="../js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>자주묻는 질문 — 르비엔 Le Bien</title>
+  <meta name="description" content="르비엔 자주묻는 질문. 주문·결제·배송·교환·회원에 관한 모든 답변." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="자주묻는 질문 — 르비엔 Le Bien" />
+  <meta property="og:description" content="자주묻는 질문." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/help/faq.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section class="pagehero">
+      <div class="container">
+        <p class="pagehero__crumb"><a href="index.html">홈</a><span class="pagehero__crumb-sep">›</span>이용안내<span class="pagehero__crumb-sep">›</span>자주묻는 질문</p>
+        <h1 class="pagehero__title">자주묻는 질문 (FAQ)</h1>
+        <p class="pagehero__sub">궁금하신 점이 여기에 없다면 <a href="support/inquiry.html" style="color:var(--color-accent);text-decoration:underline;">1:1 문의</a>로 보내주세요.</p>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="container container--narrow">
+        <div class="faq__filter" id="faqFilter">
+          <button type="button" class="is-active" data-cat="all">전체</button>
+          <button type="button" data-cat="주문/결제">주문/결제</button>
+          <button type="button" data-cat="배송">배송</button>
+          <button type="button" data-cat="교환/반품">교환/반품</button>
+          <button type="button" data-cat="회원/멤버십">회원/멤버십</button>
+          <button type="button" data-cat="기타">기타</button>
+        </div>
+        <ul id="faqList" style="margin:0;padding:0;list-style:none;"></ul>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      function whenReady(fn) {
+        var d = new Promise(function (r) { document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', r) : r(); });
+        Promise.all([d, window.__LB_INCLUDES_READY || Promise.resolve()]).then(fn);
+      }
+      var faqs = [];
+      var currentCat = 'all';
+
+      whenReady(function () {
+        fetch('data/faqs.json').then(function (r) { return r.json(); }).then(function (data) {
+          faqs = data;
+          render();
+        });
+        document.getElementById('faqFilter').addEventListener('click', function (e) {
+          var btn = e.target.closest('button[data-cat]');
+          if (!btn) return;
+          document.querySelectorAll('#faqFilter button').forEach(function (b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          currentCat = btn.getAttribute('data-cat');
+          render();
+        });
+      });
+
+      function render() {
+        var list = document.getElementById('faqList');
+        var items = currentCat === 'all' ? faqs : faqs.filter(function (f) { return f.category === currentCat; });
+        list.innerHTML = items.map(function (f, i) {
+          return '<li class="faqitem">' +
+            '<button class="faqitem__q" type="button" aria-expanded="false">' +
+              '<span><span style="display:inline-block;padding:2px 7px;background:var(--color-bg-soft);color:var(--color-primary);font-size:11px;font-weight:700;border-radius:3px;margin-right:8px;">' + esc(f.category) + '</span>' + esc(f.q) + '</span>' +
+              '<svg class="faqitem__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+            '</button>' +
+            '<div class="faqitem__a">' + esc(f.a) + '</div>' +
+          '</li>';
+        }).join('');
+        list.querySelectorAll('.faqitem').forEach(function (it) {
+          var btn = it.querySelector('.faqitem__q');
+          btn.addEventListener('click', function () {
+            var open = it.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+        });
+      }
+      function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    })();
+  </script>
+</body>
+</html>

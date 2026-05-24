@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <script src="js/base.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A2540" />
+  <title>페이지를 찾을 수 없습니다 — 르비엔 Le Bien</title>
+  <meta name="description" content="찾으시는 페이지가 존재하지 않거나 이동되었습니다." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A2540'/%3E%3Ctext x='32' y='44' font-family='Georgia, serif' font-size='32' font-weight='700' fill='%23C9A961' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <section class="errorpage container">
+      <div class="errorpage__code">404</div>
+      <h1 class="errorpage__title">찾으시는 페이지가 없습니다</h1>
+      <p class="errorpage__sub">주소가 변경되었거나, 페이지가 더 이상 존재하지 않습니다.<br/>아래 버튼으로 르비엔의 다른 곳을 둘러보세요.</p>
+      <div class="errorpage__actions">
+        <a href="index.html" class="btn btn--gold">홈으로</a>
+        <a href="events.html" class="btn btn--ghost">기획전 보러가기</a>
+        <a href="help/faq.html" class="btn btn--ghost">FAQ</a>
+      </div>
+      <form role="search" action="search.html" method="get" style="margin-top:32px;display:inline-flex;gap:6px;">
+        <input class="input" type="search" name="q" placeholder="찾으시는 상품 검색" style="min-width:220px;" />
+        <button type="submit" class="btn btn--primary">검색</button>
+      </form>
+    </section>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/includes.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
