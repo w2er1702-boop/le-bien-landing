@@ -61,7 +61,7 @@ npx serve .
    git add .
    git commit -m "Initial commit: Le Bien landing"
    git branch -M main
-   git remote add origin https://github.com/<USERNAME>/<REPO>.git
+   git remote add origin https://github.com/w2er1702-boop/le-bien-landing.git
    git push -u origin main
    ```
 
@@ -73,14 +73,14 @@ npx serve .
 
    선택 후 **Save**
 5. 1~2분 뒤 같은 페이지 상단에 발급되는 URL을 확인합니다. 보통 형식은
-   `https://<USERNAME>.github.io/<REPO>/`
+   `https://w2er1702-boop.github.io/le-bien-landing/`
 
 ### 배포 후 반드시 교체할 자리표시자
 
 `index.html`의 OG 메타에 들어있는 URL을 실제 값으로 바꿔주세요.
 
 ```html
-<meta property="og:url" content="https://[USERNAME].github.io/[REPO]/">
+<meta property="og:url" content="https://w2er1702-boop.github.io/le-bien-landing/">
 ```
 
 →
