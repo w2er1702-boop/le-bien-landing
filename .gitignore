@@ -18,3 +18,6 @@ yarn-error.log
 *.log
 .env
 .env.local
+
+# Local video working files
+work/
