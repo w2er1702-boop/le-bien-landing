@@ -20,7 +20,11 @@ AI로 생성한 무드 배경 영상 위에 [Remotion](https://www.remotion.dev/
 
 - `public/scenes/0X-*.png` — AI 이미지 생성(nano_banana)으로 만든 브랜드 무드 컷
 - `public/scenes/0X-*.mp4` — 위 이미지를 image-to-video(Kling 3.0)로 5초 애니메이션한 배경 클립
+- `public/audio/music.m4a` — AI 생성(Sonilo) 인스트루멘털 배경음악 30초
+- `public/audio/vo-1~5.wav` — AI 생성(Inworld TTS, `Yoona (ko)`) 씬별 한국어 내레이션
 - `public/fonts/*.woff2` — Playfair Display(영문) · Noto Sans KR(국문). 렌더 환경의 폰트 CDN 차단을 피하려고 로컬 번들로 포함
+
+오디오 합성은 `src/LeBienPromo.tsx`에서 처리합니다. 배경음악은 볼륨 페이드 인/아웃(0.18~0.22), 내레이션은 측정된 길이에 맞춰 씬별 절대 프레임에 배치했습니다.
 
 ## 사용법
 
