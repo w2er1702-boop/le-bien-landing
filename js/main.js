@@ -16,8 +16,8 @@
     var text = (label || img.alt || 'Le Bien').replace(/&/g, '&amp;').replace(/</g, '&lt;');
     var svg =
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">' +
-      '<rect width="400" height="400" fill="#0A2540"/>' +
-      '<text x="200" y="195" font-family="Pretendard, Apple SD Gothic Neo, sans-serif" font-size="22" fill="#C9A961" text-anchor="middle" font-weight="700">Le Bien</text>' +
+      '<rect width="400" height="400" fill="#5B4B9A"/>' +
+      '<text x="200" y="195" font-family="Pretendard, Apple SD Gothic Neo, sans-serif" font-size="22" fill="#C4B3EA" text-anchor="middle" font-weight="700">Le Bien</text>' +
       '<text x="200" y="225" font-family="Pretendard, Apple SD Gothic Neo, sans-serif" font-size="18" fill="#FFFFFF" text-anchor="middle">' + text + '</text>' +
       '</svg>';
     img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
