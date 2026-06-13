@@ -1,0 +1,22 @@
+{
+  "name": "le-bien-promo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "르비엔 Le Bien 30초 브랜드 홍보영상 (Remotion + AI 배경)",
+  "scripts": {
+    "start": "remotion studio",
+    "render": "remotion render LeBienPromo out/le-bien-promo.mp4 --concurrency=2"
+  },
+  "dependencies": {
+    "@remotion/fonts": "4.0.476",
+    "@remotion/transitions": "4.0.476",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.476"
+  },
+  "devDependencies": {
+    "@remotion/cli": "4.0.476",
+    "@types/react": "19.0.0",
+    "typescript": "5.6.3"
+  }
+}
